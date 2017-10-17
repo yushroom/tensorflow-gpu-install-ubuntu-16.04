@@ -5,7 +5,7 @@
 ``` bash 
 sudo apt-get update
 ```
-   
+
 1. Install apt-get deps  
 ``` bash
 sudo apt-get install openjdk-8-jdk git python-dev python3-dev python-numpy python3-numpy build-essential python-pip python3-pip python-virtualenv swig python-wheel libcurl3-dev   
@@ -18,7 +18,7 @@ curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_6
 dpkg -i ./cuda-repo-ubuntu1604_8.0.61-1_amd64.deb
 apt-get update
 apt-get install cuda -y
-```  
+```
 
 2a. check nvidia driver install 
 ``` bash
@@ -26,7 +26,7 @@ nvidia-smi
 
 # you should see a list of gpus printed    
 # if not, the previous steps failed.   
-``` 
+```
 
 3. install cuda toolkit (MAKE SURE TO SELECT N TO INSTALL NVIDIA DRIVERS)
 ``` bash
@@ -62,27 +62,29 @@ sudo sh cuda_8.0.61_375.26_linux.run   # press and hold s to skip agreement
 # Installing the CUDA Samples in /home/liping …
 # Copying samples to /home/liping/NVIDIA_CUDA-8.0_Samples now…
 # Finished copying samples.
-```    
+```
 
 4. Install cudnn   
+
+   [2016.10.17] tensorflow 1.3 require cudnn6.
 ``` bash
 wget https://s3.amazonaws.com/personal-waf/cudnn-8.0-linux-x64-v5.1.tgz   
 sudo tar -xzvf cudnn-8.0-linux-x64-v5.1.tgz   
 sudo cp cuda/include/cudnn.h /usr/local/cuda/include
 sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
 sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
-```    
+```
 
 5. Add these lines to end of ~/.bashrc:   
 ``` bash
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
 export CUDA_HOME=/usr/local/cuda
-```   
+```
 
 6. Reload bashrc     
 ``` bash 
 source ~/.bashrc
-```   
+```
 
 7. Install miniconda   
 ``` bash
@@ -101,19 +103,19 @@ bash Miniconda3-latest-Linux-x86_64.sh
 # to PATH in your /home/ghost/.bashrc ? [yes|no]
 # yes    
 
-```   
+```
 
 8. Reload bashrc     
 ``` bash 
 source ~/.bashrc
-```   
+```
 
 9. Create conda env to install tf   
 ``` bash
 conda create -n tensorflow
 
 # press y a few times 
-```   
+```
 
 10. Activate env   
 ``` bash
@@ -124,7 +126,15 @@ source activate tensorflow
 ``` bash
 # pip install --ignore-installed --upgrade aTFUrl
 pip install --ignore-installed --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.2.0-cp36-cp36m-linux_x86_64.whl
-```   
+```
+
+for users from China:
+
+``` bash
+pip install -i https://mirrors.aliyun.com/pypi/simple/ tensorflow-gpu
+```
+
+more pip source: http://www.cnblogs.com/microman/p/6107879.html
 
 12. Test tf install   
 ``` bash
@@ -137,4 +147,4 @@ import tensorflow as tf
 hello = tf.constant('Hello, TensorFlow!')
 sess = tf.Session()
 print(sess.run(hello))
-```  
+```
